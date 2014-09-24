@@ -51,14 +51,15 @@ WDWS.Socket.prototype.handleWrite = function(command, fn) {
 WDWS.Socket.prototype.handleRead = function(command, fn) {
   console.log('< read ' + command.path);
   this.server.provider.readPath(command.path, function(err, data) {
-    err ? fn(err) : fn(data);
+    console.log(data);
+    err ? fn(err) : fn(null, data);
   });
 }
 
-WDWS.Socket.prototype.handleList = function(fn) {
+WDWS.Socket.prototype.handleList = function(command, fn) {
   console.log('< list');
-  this.server.provider.list(function(err, data) {
-    err ? fn(err) : fn(data);
+  this.server.provider.list(command.path, function(err, data) {
+    err ? fn(err) : fn(null, data);
   });
 }
 

@@ -61,5 +61,5 @@ On the client:
 - [ ] Use the provider as a static web host as well as a protocol
 - [ ] Add support for "plugins" for things like Bower, Git
 - [ ] Write a browser client to cleanly wrap the protocol
-- [ ] See if we can make a more standard callback pattern
-- [ ] Paths should be absolute to the root, not fully resolved
+- [x] See if we can make a more standard callback pattern
+- [x] Paths should be absolute to the root, not fully resolved

@@ -1,6 +1,7 @@
 var fs = require('fs-extra');
 var pth = require('path');
 var dir = require('node-dir');
+var express = require('express');
 
 var _err = function(status, error, error_description) {
   return {
@@ -16,6 +17,10 @@ var ERRORS = {
 
 function FSProvider(options) {
   this.root = pth.resolve(options.root || require('os').tmpdir() + "/fsprovider-" + Math.random().toString().substr(2));
+}
+
+FSProvider.prototype.static = function() {
+  return express.static(this.root);
 }
 
 // ensure that the absolute resolved path is inside the root

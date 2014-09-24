@@ -11,6 +11,11 @@ WDWS.Server = function(options) {
   this.clients = [];
   this.provider = options.provider;
   
+  var staticServer = this.provider.static();
+  if (staticServer) {
+    this.app.use(staticServer);
+  }
+  
   var _server = this;
   this.io.on('connection', function(socket) {
     _server.addClient(new WDWS.Socket(_server, socket));

@@ -58,7 +58,7 @@ On the client:
 
 ## Todo
 
-- [ ] Use the provider as a static web host as well as a protocol
+- [x] Use the provider as a static web host as well as a protocol
 - [ ] Add support for "plugins" for things like Bower, Git
 - [ ] Write a browser client to cleanly wrap the protocol
 - [x] See if we can make a more standard callback pattern

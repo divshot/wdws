@@ -53,11 +53,12 @@ All methods return promises (the preferred way to call the API) but are also
 wrapped in node-like callbacks (with `err` as the first argument).
 
 * **new WDWSClient(url)** - connect to WDWS server at specified URL
-* **client.ls(path)** - calls back with one argument, an array of files
+* **client.list(path)** - calls back with one argument, an array of files
 * **client.put(path, data)** - write `data` to `path`
 * **client.get(path)** - calls back with one argument, the contents of specified file
 * **client.mkdir(path)** - makes a directory at the specified path
-
+* **client.rm(path)** - remove the specified file. non-recursive
+* **client.rmr(path)** - remove the specified file/directory recursively
 
 ## Todo
 

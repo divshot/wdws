@@ -81,4 +81,14 @@ FSProvider.prototype.mkdir = function(path, callback) {
   fs.mkdirs(path, callback);
 }
 
+FSProvider.prototype.rm = function(path, options, callback) {
+  path = this.securePath(path);
+  if (!path){ callback(ERRORS.illegal_path); return; }
+  if (options.recursive) {
+    fs.remove(path, callback);
+  } else {
+    fs.unlink(path, callback);
+  }
+}
+
 module.exports = FSProvider;

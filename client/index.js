@@ -32,4 +32,12 @@ WDWSClient.prototype.mkdir = function(path, callback) {
   return this.command('mkdir', {path: path}, callback);
 }
 
+WDWSClient.prototype.rm = function(path, callback) {
+  return this.command('rm', {path: path, recursive: false}, callback);
+}
+
+WDWSClient.prototype.rmr = function(path, callback) {
+  return this.command('rm', {path: path, recursive: true}, callback);
+}
+
 module.exports = WDWSClient;

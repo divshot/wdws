@@ -33,6 +33,14 @@ WDWSClient.prototype.mkdir = function(path, callback) {
   return this.command('mkdir', {path: path}, callback);
 }
 
+WDWSClient.prototype.rm = function(path, callback) {
+  return this.command('rm', {path: path, recursive: false}, callback);
+}
+
+WDWSClient.prototype.rmr = function(path, callback) {
+  return this.command('rm', {path: path, recursive: true}, callback);
+}
+
 module.exports = WDWSClient;
 },{"promise":2,"socket.io-client":8}],2:[function(require,module,exports){
 'use strict';

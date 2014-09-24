@@ -1,0 +1,1 @@
+../../../dist/wdws-client.js

@@ -49,7 +49,7 @@ FSProvider.prototype.list = function(path, callback) {
   fs.readdir(path, function(err, files) {
     if (err){ callback(_err(500, 'unknown_error', err)); return;}
     
-    callback(files.map(function(file) {
+    callback(null, files.map(function(file) {
       var resolvedPath = pth.join(path, file);
       
       var stat = fs.lstatSync(resolvedPath);

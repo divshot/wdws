@@ -1,9 +1,30 @@
 <!doctype html>
 <html>
   <head>
-    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <script src="wdws-client.js"></script>
   </head>
   <body>
+    <ul id="list"></ul>
     
+    <script>
+      var url = 'http://';
+      url += document.location.hostname;
+      url += ':8080/'
+      
+      console.log(url);
+      
+      var wdws = new window.WDWSClient(url)
+      var listEl = document.getElementById('list');
+      
+      wdws.list('/').then(function(files) {
+        files.forEach(function(file) {
+          var li = document.createElement('li');
+          li.innerHTML = "<b>" + (file.isDirectory ? "D" : "F") + " </b> " + file.name;
+          listEl.appendChild(li);
+        });
+      }, function(err) {
+        console.log(err);
+      });
+    </script>
   </body>
 </html>

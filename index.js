@@ -46,6 +46,7 @@ WDWS.Socket = function(server, socket) {
   this.socket.on('put', this.handleWrite.bind(this));
   this.socket.on('get', this.handleRead.bind(this));
   this.socket.on('list', this.handleList.bind(this));
+  this.socket.on('mkdir', this.handleMkdir.bind(this));
 }
 
 WDWS.Socket.prototype.handleWrite = function(command, fn) {
@@ -56,15 +57,21 @@ WDWS.Socket.prototype.handleWrite = function(command, fn) {
 WDWS.Socket.prototype.handleRead = function(command, fn) {
   console.log('< read ' + command.path);
   this.server.provider.readPath(command.path, function(err, data) {
-    console.log(data);
     err ? fn(err) : fn(null, data);
   });
 }
 
 WDWS.Socket.prototype.handleList = function(command, fn) {
-  console.log('< list');
+  console.log('< list ' + command.path);
   this.server.provider.list(command.path, function(err, data) {
     err ? fn(err) : fn(null, data);
+  });
+}
+
+WDWS.Socket.prototype.handleMkdir = function(command, fn) {
+  console.log('< mkdir ' + command.path);
+  this.server.provider.mkdir(command.path, function(err) {
+    err ? fn(err) : fn()
   });
 }
 

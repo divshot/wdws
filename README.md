@@ -12,7 +12,7 @@ web host, allowing you to simultaneously modify and view your work.
 
     npm install wdws
 
-## Usage
+## Basic Usage
 
 First, you'll need a WDWS server running.
 
@@ -32,34 +32,43 @@ server.listen(8080);
 On the client:
 
 ```html
-<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+<script src="wdws-client.js"></script>
 
 <script>
-  var wdws = io.connect('http://localhost:8080/');
-  wdws.emit('list', function(files) {
-    if (!files.error) {
-      // files is a list of file paths 
-    }
-  });
+  var wdws = new WDWSClient('http://wdws.example.com');
   
-  wdws.emit('read', '/index.html', function(data) {
-    if (!data.error) {
-      // data is a string with file contents
-    }
-  });
+  var handleError = function(err){ throw err; }
   
-  wdws.emit('write', '/index.html', 'Hello World', function(err) {
-    if (!err) {
-      // it worked!
-    }
-  }
+  wdws.put('/index.html', '<h1>Hello, World!</h1>').then(function() {
+    return wd.list('/');
+  }).then(function(files) {
+    console.log("Files", files);
+  }, handleError);
 </script>
 ```
 
+## Client API
+
+All methods return promises (the preferred way to call the API) but are also
+wrapped in node-like callbacks (with `err` as the first argument).
+
+* **new WDWSClient(url)** - connect to WDWS server at specified URL
+* **client.ls(path)** - calls back with one argument, an array of files
+* **client.put(path, data)** - write `data` to `path`
+* **client.get(path)** - calls back with one argument, the contents of specified file
+* **client.mkdir(path)** - makes a directory at the specified path
+
+
 ## Todo
+
+### For Prototype
 
 - [x] Use the provider as a static web host as well as a protocol
 - [ ] Add support for "plugins" for things like Bower, Git
 - [x] Write a browser client to cleanly wrap the protocol
 - [x] See if we can make a more standard callback pattern
 - [x] Paths should be absolute to the root, not fully resolved
+
+### For Public
+
+- [ ] Authentication/Authorization

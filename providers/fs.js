@@ -75,4 +75,10 @@ FSProvider.prototype.readPath = function(path, callback) {
   fs.readFile(path, {encoding: 'utf8'}, callback);
 }
 
+FSProvider.prototype.mkdir = function(path, callback) {
+  path = this.securePath(path);
+  if (!path){ callback(ERRORS.illegal_path); return; }
+  fs.mkdirs(path, callback);
+}
+
 module.exports = FSProvider;

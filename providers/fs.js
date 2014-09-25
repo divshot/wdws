@@ -17,6 +17,7 @@ var ERRORS = {
 
 function FSProvider(options) {
   this.root = pth.resolve(options.root || require('os').tmpdir() + "/fsprovider-" + Math.random().toString().substr(2));
+  fs.ensureDir(this.root);
 }
 
 FSProvider.prototype.static = function() {

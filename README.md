@@ -29,36 +29,10 @@ var server = new wdws.Server({
 server.listen(8080);
 ```
 
-On the client:
+### Client
 
-```html
-<script src="wdws-client.js"></script>
-
-<script>
-  var wdws = new WDWSClient('http://wdws.example.com');
-  
-  var handleError = function(err){ throw err; }
-  
-  wdws.put('/index.html', '<h1>Hello, World!</h1>').then(function() {
-    return wd.list('/');
-  }).then(function(files) {
-    console.log("Files", files);
-  }, handleError);
-</script>
-```
-
-## Client API
-
-All methods return promises (the preferred way to call the API) but are also
-wrapped in node-like callbacks (with `err` as the first argument).
-
-* **new WDWSClient(url)** - connect to WDWS server at specified URL
-* **client.list(path)** - calls back with one argument, an array of files
-* **client.put(path, data)** - write `data` to `path`
-* **client.get(path)** - calls back with one argument, the contents of specified file
-* **client.mkdir(path)** - makes a directory at the specified path
-* **client.rm(path)** - remove the specified file. non-recursive
-* **client.rmr(path)** - remove the specified file/directory recursively
+See [wdws-client] for information about how to connect to and perform commands
+on a WDWS server.
 
 ## Todo
 

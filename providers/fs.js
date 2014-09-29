@@ -26,9 +26,12 @@ FSProvider.prototype.static = function() {
 
 // ensure that the absolute resolved path is inside the root
 FSProvider.prototype.securePath = function(path) {
-  if (path) {
-    path = this.root + path;
+  if (path && typeof(path) === 'string') {
+    path = pth.join(this.root, path);
+  } else {
+    return false;
   }
+  
   var resolvedPath = pth.resolve(path);
   
   if (resolvedPath.indexOf(this.root) === 0) {
@@ -43,7 +46,7 @@ FSProvider.prototype.fullPath = function(path) {
 }
 
 FSProvider.prototype.list = function(path, callback) {
-  path = this.securePath(path);
+  path = this.securePath(path || '/');
   if (!path){ callback(ERRORS.illegal_path); return; }
   
   var that = this;

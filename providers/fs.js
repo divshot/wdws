@@ -2,6 +2,7 @@ var fs = require('fs-extra');
 var pth = require('path');
 var dir = require('node-dir');
 var express = require('express');
+var glob = require('glob');
 
 var _err = function(status, error, error_description) {
   return {
@@ -65,6 +66,13 @@ FSProvider.prototype.list = function(path, callback) {
       }
     }));
   });
+}
+
+FSProvider.prototype.glob = function(pattern, callback) {
+  glob(pattern, {
+    cwd: this.root,
+    root: this.root,
+  }, callback);
 }
 
 FSProvider.prototype.writePath = function(path, content, callback) {

@@ -20,4 +20,8 @@ module.exports = function() { return function(server, cmd) {
     server.provider.rm(params.path, {recursive: params.recursive}, fn);        
   });
   
+  cmd('glob', function(params, fn) {
+    server.provider.glob(params.pattern, fn);
+  });
+  
 }};
